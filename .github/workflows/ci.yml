@@ -15,7 +15,7 @@ jobs:
 
       - name: Cek Waktu
         run: date
-        
+
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -31,3 +31,15 @@ jobs:
 
       - name: Run Linter
         run: flake8 app.py --max-line-length=120
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Pytest
+        run: pip install pytest
+
+      - name: Run Unit Test
+        run: pytest test_app.py -v
